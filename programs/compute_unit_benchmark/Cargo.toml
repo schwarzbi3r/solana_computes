@@ -1,0 +1,20 @@
+[package]
+name = "compute_unit_benchmark"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "compute_unit_benchmark"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.22.0"
+solana-program = "1.10.0"
