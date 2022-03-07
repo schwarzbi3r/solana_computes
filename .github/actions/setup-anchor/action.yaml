@@ -13,8 +13,10 @@ runs:
             ~/.cargo/bin/
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-          key: solana-${{ runner.os }}-v0000-${{ env.ANCHOR_VERSION }}-${{ env.SOLANA_CLI_VERSION}}
+            ~/.cargo/git
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+          key: solana-${{ runner.os }}-v0001-${{ env.ANCHOR_VERSION }}-${{ env.SOLANA_CLI_VERSION}}
       - run: sh -c "$(curl -sSfL https://release.solana.com/v${{ env.SOLANA_CLI_VERSION }}/install)"
         shell: bash
       - run: echo "/home/runner/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH
@@ -23,5 +25,9 @@ runs:
         shell: bash
       - run: solana config set --url localhost
         shell: bash
-      - run: cargo install --git https://github.com/project-serum/anchor --tag v${{ env.ANCHOR_VERSION }} anchor-cli --locked --force
+      - run: |
+          if [[ $(anchor --version) != "anchor-cli {{ env.ANCHOR_VERSION }}" ]]; \
+          then \
+          cargo install --git https://github.com/project-serum/anchor --tag v${{ env.ANCHOR_VERSION }} anchor-cli --locked --force; \
+          fi
         shell: bash

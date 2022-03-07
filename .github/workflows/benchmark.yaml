@@ -30,13 +30,7 @@ jobs:
         id: cache-cargo-build
         with:
           path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
             ./target
-          key: cargo-${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
-      - run: echo $PWD && echo $HOME
+          key: anchor-${{ runner.os }}-anchor-build-${{ hashFiles('**/Cargo.lock') }}
       - run: anchor build
-      - run: ls -al ./target/deploy
       - run: anchor test

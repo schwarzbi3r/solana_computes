@@ -11,3 +11,4 @@ runs:
             ./node_modules
           key: yarn-${{ runner.os }}-yarn-install-${{ hashFiles('**/yarn.lock') }}
       - run: yarn
+        shell: bash
