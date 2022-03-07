@@ -4,7 +4,7 @@ runs:
   using: "composite"
   steps:
       - uses: actions/cache@v2
-        name: Cache Solana Tool Suite
+        name: Cache Solana and Anchor
         id: cache-anchor
         with:
           path: |
@@ -15,8 +15,6 @@ runs:
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
           key: solana-${{ runner.os }}-v0000-${{ env.ANCHOR_VERSION }}-${{ env.SOLANA_CLI_VERSION}}
-      - run: sudo apt-get update && sudo apt-get install -y pkg-config build-essential libudev-dev
-        shell: bash
       - run: sh -c "$(curl -sSfL https://release.solana.com/v${{ env.SOLANA_CLI_VERSION }}/install)"
         shell: bash
       - run: echo "/home/runner/.local/share/solana/install/active_release/bin" >> $GITHUB_PATH

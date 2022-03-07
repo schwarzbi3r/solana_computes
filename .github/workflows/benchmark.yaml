@@ -19,6 +19,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup-base/
       - uses: ./.github/actions/setup-anchor/
       - uses: actions/setup-node@v2
         with:
@@ -32,6 +33,7 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
+            ./target
           key: cargo-${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
       - run: yarn
       - run: anchor test
