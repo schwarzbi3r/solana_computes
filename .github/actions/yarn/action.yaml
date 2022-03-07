@@ -1,0 +1,13 @@
+name: "Yarn"
+description: "Install yarn dependencies"
+runs:
+  using: "composite"
+  steps:
+      - uses: actions/cache@v2
+        name: Cache node_modules
+        id: cache-yarn
+        with:
+          path: |
+            ./node_modules
+          key: yarn-${{ runner.os }}-yarn-install-${{ hashFiles('**/yarn.lock') }}
+      - run: yarn

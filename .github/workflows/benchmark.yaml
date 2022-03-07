@@ -24,6 +24,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - uses: ./.github/actions/yarn/
       - uses: actions/cache@v2
         name: Cache Cargo registry + index
         id: cache-cargo-build
@@ -35,5 +36,7 @@ jobs:
             ~/.cargo/git/db/
             ./target
           key: cargo-${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
-      - run: yarn
+      - run: echo $PWD && echo $HOME
+      - run: anchor build
+      - run: ls -al ./target/deploy
       - run: anchor test
