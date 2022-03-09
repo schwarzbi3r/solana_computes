@@ -12,23 +12,53 @@ pub mod compute_unit_benchmark {
 
     use super::*;
 
-    pub fn baseline(_ctx: Context<EmptyBenchmark>) -> Result<()> {
-        msg!("Baseline");
+    pub fn empty_benchmark(_ctx: Context<EmptyBenchmark>) -> Result<()> {
+        msg!("Bench: Empty");
+        solana_program::log::sol_log_compute_units();
+        solana_program::log::sol_log_compute_units();
         Ok(())
     }
 
-    pub fn pubkey_from_string(_ctx: Context<EmptyBenchmark>) -> Result<()> {
+    pub fn simple_benchmark(_ctx: Context<EmptyBenchmark>) -> Result<()> {
+        msg!("Bench: Pubkey macro");
+        solana_program::log::sol_log_compute_units();
+        let pubkey: Pubkey = pubkey!("C8mgrCncLMtpfh4QzkJsPfrWd384yQeSYpdujw4LF53T");
+        solana_program::log::sol_log_compute_units();
+
+        msg!("Bench: Pubkey to String");
+        solana_program::log::sol_log_compute_units();
+        msg!("Pubkey: {}", pubkey.to_string());
+        solana_program::log::sol_log_compute_units();
+
+        Ok(())
+    }
+
+    pub fn nested_benchmarks(ctx: Context<SingleAccountBenchmark>) -> Result<()> {
+        msg!("Bench: EntireProgram");
+        solana_program::log::sol_log_compute_units();
+
+        msg!("Bench: FindProgramAddress");
+        solana_program::log::sol_log_compute_units(); // Begin findProgramAddressBench
+        solana_program::pubkey::Pubkey::find_program_address(&[b"foo"],&ctx.accounts.signer.key());
+        solana_program::log::sol_log_compute_units(); // End findProgramAddressBench
+
+        msg!("Bench: PubkeyFromString");
+        solana_program::log::sol_log_compute_units(); // Begin pubkeyFromString
         let pubkey = Pubkey::from_str(PUBKEY_STR).unwrap();
         msg!("Pubkey: {}", pubkey.to_string());
-        Ok(())
-    }
+        solana_program::log::sol_log_compute_units(); // End pubkeyFromString
 
-    pub fn pubkey_from_macro(_ctx: Context<EmptyBenchmark>) -> Result<()> {
-        let pubkey: Pubkey = pubkey!("C8mgrCncLMtpfh4QzkJsPfrWd384yQeSYpdujw4LF53T");
-        msg!("Pubkey: {}", pubkey.to_string());
+        msg!("Log something else");
+
+        solana_program::log::sol_log_compute_units();
         Ok(())
     }
 }
 
 #[derive(Accounts)]
 pub struct EmptyBenchmark {}
+
+#[derive(Accounts)]
+pub struct SingleAccountBenchmark<'info> {
+    pub signer: Signer<'info>,
+}
