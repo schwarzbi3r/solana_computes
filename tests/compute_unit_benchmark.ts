@@ -44,7 +44,7 @@ describe("compute_unit_benchmark", () => {
     await printBenchmark(benchTx, provider.connection, 2)
   });
 
-  it("It should output a nested benchmark for the transaction", async () => {
+  it("It should output a simple benchmark for the transaction", async () => {
 
     const benchTx = await program.rpc.simpleBenchmark({
       accounts: {
