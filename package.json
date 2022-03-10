@@ -1,7 +1,7 @@
 {
     "dependencies": {
         "@project-serum/anchor": "^0.22.0",
-        "sol_log_bench": "https://github.com/schwarzbi3r/sol_log_bench"
+        "sol_log_bench": "https://github.com/schwarzbi3r/sol_log_bench#v1.0.0"
     },
     "devDependencies": {
         "@types/mocha": "^9.0.0",

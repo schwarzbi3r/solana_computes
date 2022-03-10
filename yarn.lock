@@ -985,9 +985,9 @@ snake-case@^3.0.4:
     dot-case "^3.0.4"
     tslib "^2.0.3"
 
-"sol_log_bench@https://github.com/schwarzbi3r/sol_log_bench":
+"sol_log_bench@https://github.com/schwarzbi3r/sol_log_bench#v1.0.0":
   version "1.0.0"
-  resolved "https://github.com/schwarzbi3r/sol_log_bench#6eaa13f2be1d1787540bf48d2f69709b34a15762"
+  resolved "https://github.com/schwarzbi3r/sol_log_bench#ac9a681173e5105e306dc9e5f558af86b1bb6e60"
 
 source-map-support@^0.5.6:
   version "0.5.21"

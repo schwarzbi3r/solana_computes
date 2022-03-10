@@ -30,6 +30,17 @@ pub mod compute_unit_benchmark {
         msg!("Pubkey: {}", pubkey.to_string());
         solana_program::log::sol_log_compute_units();
 
+        let pda_program_id: Pubkey = pubkey!("Et36LeaAFQcyuuWWTDfDznhZ49VC4jUAJE2AForBzcuf");
+        msg!("Bench: FindProgramAddress for close bump");
+        solana_program::log::sol_log_compute_units();
+        solana_program::pubkey::Pubkey::find_program_address(&[b"qgjnnkdpbjr2o2e7"],&pda_program_id);
+        solana_program::log::sol_log_compute_units();
+
+        msg!("Bench: FindProgramAddress for distant bump");
+        solana_program::log::sol_log_compute_units();
+        solana_program::pubkey::Pubkey::find_program_address(&[b"qgjnnkdpbjr2o2e4"],&pda_program_id);
+        solana_program::log::sol_log_compute_units();
+
         Ok(())
     }
 
@@ -45,8 +56,8 @@ pub mod compute_unit_benchmark {
         msg!("Bench: PubkeyFromString");
         solana_program::log::sol_log_compute_units(); // Begin pubkeyFromString
         let pubkey = Pubkey::from_str(PUBKEY_STR).unwrap();
-        msg!("Pubkey: {}", pubkey.to_string());
         solana_program::log::sol_log_compute_units(); // End pubkeyFromString
+        msg!("Pubkey: {}", pubkey.to_string());
 
         msg!("Log something else");
 
